@@ -2,7 +2,7 @@
 	
 	window.jsPlumbDemo = {
 		init : function() {				
-			jsPlumb.importDefaults({				
+			jsPlumb.importDefaults({
 				DragOptions : { cursor: 'pointer', zIndex:2000 },				
 				EndpointStyles : [{ fillStyle:'#225588' }, { fillStyle:'#558822' }],				
 				Endpoints : [ [ "Dot", {radius:7} ], [ "Dot", { radius:11 } ]],				
@@ -14,8 +14,7 @@
 						cssClass:"aLabel"
 					}]
 				]
-			});			
-
+			});
 			
 			var connectorPaintStyle = {
 				lineWidth:5,
@@ -79,6 +78,7 @@
 					}
 				};
 
+			_addEndpoints("window6", ["TopCenter", "BottomCenter"], ["LeftMiddle", "RightMiddle"]);
 			_addEndpoints("window5", ["TopCenter", "BottomCenter"], ["LeftMiddle", "RightMiddle"]);
 			_addEndpoints("window4", ["TopCenter", "BottomCenter"], ["LeftMiddle", "RightMiddle"]);
 			_addEndpoints("window2", ["LeftMiddle", "BottomCenter"], ["TopCenter", "RightMiddle"]);
