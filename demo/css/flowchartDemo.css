@@ -37,6 +37,10 @@ filter:alpha(opacity=60);
 #window2 { top:7em; left:36em;}
 #window3 { top:27em;left:48em; }
 #window4 { top:23em; left:22em;}
+#window5 { top:30em; left:32em;}
+#window6 { top:37em; left:42em;}
+
+
 ._jsPlumb_connector { z-index:4; }
 ._jsPlumb_endpoint, .endpointTargetLabel, .endpointSourceLabel{ z-index:21;cursor:pointer; }
 .hl { border:3px solid red; }
