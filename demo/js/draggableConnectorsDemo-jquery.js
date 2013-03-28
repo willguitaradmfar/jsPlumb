@@ -31,9 +31,8 @@
 		};
 	
 	window.jsPlumbDemo = {
-		init : function() {
-		
-			// setup jsPlumb defaults.
+		init : function() {		
+			
 			jsPlumb.importDefaults({
 				DragOptions : { cursor: 'pointer', zIndex:2000 },
 				PaintStyle : { strokeStyle:'#666' },
@@ -41,35 +40,20 @@
 				Endpoint : "Rectangle",
 				Anchors : ["TopCenter", "TopCenter"]
 			});												
-
-			// bind to connection/connectionDetached events, and update the list of connections on screen.
+			
 			jsPlumb.bind("connection", function(info, originalEvent) {
 				updateConnections(info.connection);
 			});
 			jsPlumb.bind("connectionDetached", function(info, originalEvent) {
 				updateConnections(info.connection, true);
 			});
-
-			// configure some drop options for use by all endpoints.
+			
 			var exampleDropOptions = {
 				tolerance:"touch",
 				hoverClass:"dropHover",
 				activeClass:"dragActive"
 			};
 
-			//
-			// first example endpoint.  it's a 25x21 rectangle (the size is provided in the 'style' arg to the Endpoint),
-			// and it's both a source and target.  the 'scope' of this Endpoint is 'exampleConnection', meaning any connection
-			// starting from this Endpoint is of type 'exampleConnection' and can only be dropped on an Endpoint target
-			// that declares 'exampleEndpoint' as its drop scope, and also that
-			// only 'exampleConnection' types can be dropped here.
-			//
-			// the connection style for this endpoint is a Bezier curve (we didn't provide one, so we use the default), with a lineWidth of
-			// 5 pixels, and a gradient.
-			//
-			// there is a 'beforeDrop' interceptor on this endpoint which is used to allow the user to decide whether
-			// or not to allow a particular connection to be established.
-			//
 			var exampleColor = "#00f";
 			var exampleEndpoint = {
 				endpoint:"Rectangle",
@@ -88,12 +72,8 @@
 					return confirm("Connect " + params.sourceId + " to " + params.targetId + "?"); 
 				},				
 				dropOptions : exampleDropOptions
-			};			
+			};
 
-			//
-			// the second example uses a Dot of radius 15 as the endpoint marker, is both a source and target,
-			// and has scope 'exampleConnection2'.
-			//
 			var color2 = "#316b31";
 			var exampleEndpoint2 = {
 				endpoint:["Dot", { radius:15 }],
@@ -107,14 +87,7 @@
 				dropOptions : exampleDropOptions
 			};
 
-			//
-			// the third example uses a Dot of radius 17 as the endpoint marker, is both a source and target, and has scope
-			// 'exampleConnection3'.  it uses a Straight connector, and the Anchor is created here (bottom left corner) and never
-			// overriden, so it appears in the same place on every element.
-			//
-			// this example also demonstrates the beforeDetach interceptor, which allows you to intercept 
-			// a connection detach and decide whether or not you wish to allow it to proceed.
-			//			
+		
 			var example3Color = "rgba(229,219,61,0.5)";
 			var exampleEndpoint3 = {
 				endpoint:["Dot", {radius:17} ],
@@ -134,12 +107,9 @@
 				}
 			};
 
-			// setup some empty endpoints.  again note the use of the three-arg method to reuse all the parameters except the location
-			// of the anchor (purely because we want to move the anchor around here; you could set it one time and forget about it though.)
+			
 			var e1 = jsPlumb.addEndpoint('window1', { anchor:[0.5, 1, 0, 1] }, exampleEndpoint2);
-
-			// setup some DynamicAnchors for use with the blue endpoints			
-			// and a function to set as the maxConnections callback.
+			
 			var anchors = [[1, 0.2, 1, 0], [0.8, 1, 0, 1], [0, 0.8, -1, 0], [0.2, 0, 0, -1] ],
 				maxConnectionsCallback = function(info) {
 					alert("Cannot drop connection " + info.connection.id + " : maxConnections has been reached on Endpoint " + info.endpoint.id);
@@ -150,7 +120,7 @@
 			e1.bind("maxConnections", maxConnectionsCallback);
 
 			var e2 = jsPlumb.addEndpoint('window2', { anchor:[0.5, 1, 0, 1] }, exampleEndpoint);
-			// again we bind manually. it's starting to get tedious.  but now that i've done one of the blue endpoints this way, i have to do them all...
+
 			e2.bind("maxConnections", maxConnectionsCallback);
 			jsPlumb.addEndpoint('window2', { anchor:"RightMiddle" }, exampleEndpoint2);
 
@@ -161,6 +131,10 @@
 			var e4 = jsPlumb.addEndpoint("window4", { anchor:[1, 0.5, 1, 0] }, exampleEndpoint);
 			e4.bind("maxConnections", maxConnectionsCallback);			
 			jsPlumb.addEndpoint("window4", { anchor:[0.25, 0, 0, -1] }, exampleEndpoint2);
+
+			jsPlumb.addEndpoint("foo", { anchor:[0.5, 0, 0, 0] }, exampleEndpoint2);
+			jsPlumb.addEndpoint("foo", { anchor:[0, 0, 0, 0] }, exampleEndpoint);
+			jsPlumb.addEndpoint("foo", { anchor:[1, 0, 0, 0] }, exampleEndpoint);
 
 			// make .window divs draggable
 			jsPlumb.draggable($(".window"));
