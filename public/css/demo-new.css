@@ -32,9 +32,9 @@ body {
 #main {
     margin-top:12px;
     font-size: 80%;
-    width: 100%;
+    width: 99%;
     border: 1px dotted #ccc;
-    height: 862px;
+    height: 500px;
     overflow: hidden;
     background-color:#f1f1f1;
     position:relative;

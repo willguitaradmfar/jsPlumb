@@ -1,0 +1,16 @@
+{
+  "name": "template-socket.io",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "NODE_ENV=development nodemon index.js"
+  },
+  "dependencies": {    
+    "socket.io": "*",    
+    "nodemon": "0.7.1"
+  },
+  "engines": {    
+    "npm":  ">= 1.1.49"
+  }
+}
+

@@ -35,32 +35,16 @@
    border:1px dotted red;
  }
 
- #window1 { top:360px;left:12px;}
- #window2 { top:7%; left:20%;}
- #window3 { top:37em;left:48em; }
- #window4 { top:48em; left:32em;}
- #window5 { top:700px; left:620px;}
- #window6 { top:720px; left:340px;}
-
-<<<<<<< HEAD
-#window1 { top:34em;left:5em;}
-#window2 { top:7em; left:36em;}
-#window3 { top:27em;left:48em; }
-#window4 { top:23em; left:22em;}
-#window5 { top:30em; left:32em;}
-#window6 { top:37em; left:42em;}
+ 
+ #somarvalores { top:7%; left:20%;}
+ #convertTotal { top:300px; left:150px;}
 
 
-._jsPlumb_connector { z-index:4; }
-._jsPlumb_endpoint, .endpointTargetLabel, .endpointSourceLabel{ z-index:21;cursor:pointer; }
-.hl { border:3px solid red; }
-#debug { position:absolute; background-color:black; color:red; z-index:5000 }
-=======
  ._jsPlumb_connector { z-index:4; }
  ._jsPlumb_endpoint, .endpointTargetLabel, .endpointSourceLabel{ z-index:21;cursor:pointer; }
  .hl { border:3px solid red; }
  #debug { position:absolute; background-color:black; color:red; z-index:5000 }
->>>>>>> 713aeee9a731ea60dc2386679729679bf496be9c
+
 
  .aLabel {
  	background-color:white;
