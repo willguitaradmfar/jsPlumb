@@ -24,7 +24,7 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, '/public')));
 });
 
-
+app.get('/getBoxModules', routes.getBoxModules);
 
 exports.construct = function() {
 	var io = socketio.listen(http).of('/jsPlumb');

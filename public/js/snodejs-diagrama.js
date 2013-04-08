@@ -1,12 +1,11 @@
-function boxController ($scope) {
-	$scope.listBox = [
-			{id : "btactw1", label : "btactw1", listProp : [{key : "NAme",	value : 'btactw1'},	{key : "idade",	value : "1"},{key : "sexo",value : "M"}]}
-			,{id : "btactw2", label : "btactw2", listProp : [{key : "name",	value : 'btactw2'},	{key : "idade",	value : "2"},{key : "sexo",value : "M"}]}
-			,{id : "btactw3", label : "btactw3", listProp : [{key : "name",	value : 'btactw3'},	{key : "idade",	value : "3"},{key : "sexo",value : "M"}]}
-			,{id : "btactw4", label : "btactw4", listProp : [{key : "name",	value : 'btactw4'},	{key : "idade",	value : "4"},{key : "sexo",value : "M"}]}
-			,{id : "btactw5", label : "btactw5", listProp : [{key : "Nome",	value : 'btactw5'},	{key : "idade",	value : "5"},{key : "sexo",value : "M"}]}
-			,{id : "btactw6", label : "btactw6", listProp : [{key : "name",	value : 'btactw6'},	{key : "idade",	value : "6"},{key : "sexo",value : "M"}]}
-			];
+function boxController ($scope, $http) {
+	$scope.listBox = [];
+
+	$http({method: 'GET', url: '/getBoxModules'}).success(function(data, status, headers, config) {	  	
+		$scope.listBox = data;
+	}).error(function(data, status, headers, config) {
+		alert('Não foi possível receber os modulos do servidor');
+	});
 
 	$scope.listIntenceBox = [];
 
