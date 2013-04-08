@@ -52,7 +52,7 @@
 
 			var connectorPaintStyle = {
 				lineWidth:2,
-				strokeStyle:"#2ECC71",
+				strokeStyle:"black",
 				joinstyle:"round",
 				outlineColor:"#EAEDEF",
 				outlineWidth:7
