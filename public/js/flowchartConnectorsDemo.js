@@ -126,7 +126,7 @@
 			});
 
 
-			jsPlumb.draggable(jsPlumb.getSelector(".window"), { grid: [1, 1] });
+			
 
 			// jsPlumb.connect({uuids:["window2BottomCenter", "window3TopCenter"], editable:true});
 			// jsPlumb.connect({uuids:["window2LeftMiddle", "window4LeftMiddle"], editable:true});
