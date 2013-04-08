@@ -1,10 +1,34 @@
+var _http = require('http')
 var socketio = require('socket.io');
+var path = require('path');
+var routes = require('./routes/index.js');
+
+var express = require('express');
+
+var app = express();
+
+var http = _http.createServer(app);
 
 var clients = [];
 
-exports.construct = function(config) {
-	var io = socketio.listen(config.server).of('/jsPlumb');
-	io.on('connection', exports.connection);
+app.configure(function(){
+  app.set('port', 8081);  
+  app.set('view', __dirname + '/view/');
+  app.set('view engine', 'jade');
+  app.use(express.favicon());
+  app.use(express.logger('dev'));
+  app.use(express.bodyParser({uploadDir:'/tmp'}));
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(require('stylus').middleware(__dirname + '/public/'));
+  app.use(express.static(path.join(__dirname, '/public')));
+});
+
+app.get('/', routes.index);
+
+exports.construct = function() {
+	var io = socketio.listen(http).of('/jsPlumb');
+	io.on('connection', exports.connection);	
 };
 
 exports.connection = function(socket) {	
@@ -104,3 +128,7 @@ exports.emmitbroadcast = function(event, data) {
 		socket.emit(event, data);
 	});
 };
+
+http.listen(process.env.PORT || app.get('port'), "0.0.0.0");
+exports.construct();
+console.log('Server running at '+app.get('port'));

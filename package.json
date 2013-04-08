@@ -6,7 +6,9 @@
     "start": "NODE_ENV=development nodemon index.js"
   },
   "dependencies": {    
-    "socket.io": "*",    
+    "socket.io": "*",
+    "express" : "",
+    "stylus" : "",
     "nodemon": "0.7.1"
   },
   "engines": {    
