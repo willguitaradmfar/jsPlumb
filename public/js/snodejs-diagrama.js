@@ -8,7 +8,7 @@ function boxController ($scope, $http) {
 			alert('Não foi possível receber os modulos do servidor');
 		});
 
-	$scope.listInstanceBox = [];	
+	$scope.listInstanceBox = [];
 
 	$scope.clickBox = function (box) {
 		
