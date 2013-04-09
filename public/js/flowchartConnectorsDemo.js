@@ -2,35 +2,30 @@
 
 	var socket = io.connect('/jsPlumb');
 
-	socket.on('test-fail', function(data) {
-		console.log(data);		
-		if(data && data.type && data.type.toLowerCase() == 'error'){
-			jsPlumb.select({source : data.boxsource, target : data.boxtarget}).setPaintStyle({strokeStyle: "red"});
-		}else if(data && data.type && data.type.toLowerCase() == 'success'){
-			jsPlumb.select({source : data.boxsource, target : data.boxtarget}).setPaintStyle({strokeStyle: "green"});
-		}else {
-			jsPlumb.select({source : data.boxsource, target : data.boxtarget}).setPaintStyle({strokeStyle: "yellow"});
-		}
-
+	socket.on('test-fail', function(data) {	
+		console.log('test-fail '+JSON.stringify(data));
 	});
 
 	socket.on('validate', function(data) {
-		console.log(data);
+		console.log('validate '+JSON.stringify(data));
 		if(data && data.type && data.type.toLowerCase() == 'error'){
+			console.log('validate error'+JSON.stringify(data));
 			jsPlumb.select({source : data.boxsource, target : data.boxtarget}).setPaintStyle({strokeStyle: "red"});
 		}else if(data && data.type && data.type.toLowerCase() == 'success'){
+			console.log('validate success'+JSON.stringify(data));
 			jsPlumb.select({source : data.boxsource, target : data.boxtarget}).setPaintStyle({strokeStyle: "green"});
 		}else {
+			console.log('validate ?'+JSON.stringify(data));
 			jsPlumb.select({source : data.boxsource, target : data.boxtarget}).setPaintStyle({strokeStyle: "yellow"});
 		}
 	});
 
 	socket.on('box-source-not-found', function(data) {
-		console.log(data);		
+		console.log('box-source-not-found '+JSON.stringify(data));		
 	});
 
 	socket.on('box-target-not-found', function(data) {
-		console.log(data);		
+		console.log('box-target-not-found '+JSON.stringify(data));		
 	});
 
 
@@ -93,7 +88,7 @@
                 ]
 			},
 			init = function(connection) {
-				connection.getOverlay("label").setLabel(connection.sourceId.substring(6) + "-" + connection.targetId.substring(6));
+				connection.getOverlay("label").setLabel(connection.sourceId.replace(/^instance-\d-(.*)$/, '$1') + " >> - >> " + connection.targetId.replace(/^instance-\d-(.*)$/, '$1'));
 				connection.bind("editCompleted", function(o) {
 					if (typeof console != "undefined")
 						console.log("connection edited. path is now ", o.path);

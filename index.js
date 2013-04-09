@@ -62,12 +62,16 @@ exports.detach = function(data) {
 
 exports.callTestSourceBox = function(box, callback) {
 	try{
-		console.log('buscando box origem ['+box.source+'] ....');
-		var tests = require(box.source+'/test.js');
-		console.log('require de origem ['+box.source+'] válido');		
+		var boxOrigem = box.source.replace(/^instance-\d-(.*)$/, '$1');
+		console.log('buscando box origem ['+boxOrigem+'] ....');
+		var tests = require('./box/'+boxOrigem+'/test.js');
+		if(tests)console.log('require de origem ['+boxOrigem+'] válido');		
 		console.log('testando metodo [validate] ....');
 
-		tests.validate(function(ret) {
+		//cria uma nova instancia de module test
+		var _objTest = new tests.test();
+
+		_objTest.validate(function(ret) {
 			console.log('resposta do teste [validate]' + JSON.stringify(ret));
 			ret.boxsource = box.source;
 			if(exports.isValidResponsePattern(ret)){
@@ -86,18 +90,22 @@ exports.callTestSourceBox = function(box, callback) {
 		});		
 	}catch(err){
 		console.log(err);
-		exports.emmitbroadcast('box-source-not-found', {msg : 'box origem não encontrado ['+box.source+']', 'box' : JSON.stringify(box)});
+		exports.emmitbroadcast('box-source-not-found', {msg : 'box origem não encontrado ['+boxOrigem+']', 'box' : JSON.stringify(box)});
 	}
 };
 
 exports.callValidateTargetBox = function(box, data) {
 	try{
-		console.log('buscando box destino ['+box.target+'] ....');
-		var validate = require(box.target+'/index.js');
-		console.log('require de destino ['+box.target+'] válido');
+		var boxTarget = box.target.replace(/^instance-\d-(.*)$/, '$1');
+		console.log('buscando box destino ['+boxTarget+'] ....');
+		var validate = require('./box/'+boxTarget+'/index.js');
+		if(validate) console.log('require de destino ['+boxTarget+'] válido');
 		console.log('chamando metodo de validação');
-		validate.validate(data, function(ret) {
-			console.log('validando resposta do validate de ['+box.target+'] '+JSON.stringify(ret));			
+
+		var _objIndex = new validate.index();
+
+		_objIndex.validate(data, function(ret) {
+			console.log('validando resposta do validate de ['+boxTarget+'] '+JSON.stringify(ret));			
 			ret.boxtarget = box.target;
 			ret.boxsource = box.source;
 			if(exports.isValidResponsePattern(ret)){
@@ -111,7 +119,7 @@ exports.callValidateTargetBox = function(box, data) {
 		});
 	}catch(err){
 		console.log(err);
-		exports.emmitbroadcast('box-target-not-found', {msg : 'box destino não encontrado ['+box.target+']', 'box' : JSON.stringify(box)});
+		exports.emmitbroadcast('box-target-not-found', {msg : 'box destino não encontrado ['+boxTarget+']', 'box' : JSON.stringify(box)});
 	}
 };
 

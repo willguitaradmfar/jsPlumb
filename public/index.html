@@ -6,6 +6,16 @@
 	<link rel="stylesheet" href="css/flowchartDemo.css">
 	<link rel="stylesheet" href="css/bootstrap-responsive.css" />
 	<link rel="stylesheet" href="css/jquery-ui-1.10.2.custom.css" />
+	<style type="text/css">
+	body {
+	    font-size: 12px;
+	}
+
+	.window{
+		width: 120px;
+    	height: 50;
+	}
+	</style>
 </head>
 <body data-demo-id="flowchartConnectorsDemo" data-library="jquery">
 
@@ -17,7 +27,11 @@
 	<nav id="accordion" class="row-fluid span2">
 		<h3>Operators</h3>
 		<div>			
-			<div ng-repeat="i in listBox" id="{{i.id}}" class="btn" ng-click="clickBox(i)"><a href="#">{{i.label}}</a></div>
+			<div ng-repeat="i in listBox" id="{{i.id}}"  ng-click="clickBox(i)">
+				<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+					<span class="ui-button-text ng-binding">{{i.label}}</span>
+				</button>
+			</div>
 		</div>
 		<h3>Methods</h3>
 		<div>
@@ -96,7 +110,9 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
 	<script>
 	$(function() {
-		$( "#accordion" ).accordion();
+		$( "#accordion" ).accordion({
+	      heightStyle: "content"
+	    });
 	});
 	</script>
 
