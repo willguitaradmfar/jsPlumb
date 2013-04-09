@@ -25,34 +25,37 @@
 
 <section class="row-fluid" ng-controller="boxController">
 	<nav id="accordion" class="row-fluid span2">
-		<h3>Operators</h3>
+		<h3>All ({{(listBox | filter: {category : 'ALL'}).length}})</h3>
 		<div>			
-			<div ng-repeat="i in listBox" id="{{i.id}}"  ng-click="clickBox(i)">
+			<div ng-repeat="i in listBox | filter: {category : 'ALL'}" id="{{i.id}}"  ng-click="clickBox(i)">
 				<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
 					<span class="ui-button-text ng-binding">{{i.label}}</span>
 				</button>
 			</div>
 		</div>
-		<h3>Methods</h3>
+		<h3>FORM ({{(listBox | filter: {category : 'FORM'}).length}})</h3>
 		<div>
-			<p>
-				teste
-			</p>
+			<div ng-repeat="i in listBox | filter: {category : 'FORM'}" id="{{i.id}}"  ng-click="clickBox(i)">
+				<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+					<span class="ui-button-text ng-binding">{{i.label}}</span>
+				</button>
+			</div>
 		</div>
-		<h3>Converters</h3>
+		<h3>CONVERTERS ({{(listBox | filter: {category : 'CONVERTERS'}).length}})</h3>
 		<div>
-			<p>
-				teste
-			</p>
-		</div>
-		<h3>Helpers</h3>
+			<div ng-repeat="i in listBox | filter: {category : 'CONVERTERS'}" id="{{i.id}}"  ng-click="clickBox(i)">
+				<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+					<span class="ui-button-text ng-binding">{{i.label}}</span>
+				</button>
+			</div>
+		</div>		
+		<h3>HELPERS ({{(listBox | filter: {category : 'HELPERS'}).length}})</h3>
 		<div>
-			<p>
-				teste
-			</p>
-			<p>
-			teste
-			</p>
+			<div ng-repeat="i in listBox | filter: {category : 'HELPERS'}" id="{{i.id}}"  ng-click="clickBox(i)">
+				<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+					<span class="ui-button-text ng-binding">{{i.label}}</span>
+				</button>
+			</div>
 		</div>
 	</nav>
 

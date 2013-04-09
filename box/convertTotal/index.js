@@ -3,6 +3,7 @@ exports.index = function(config) {
 
 	this.label = "Convert";
 	this.Moeda = "Dolar";
+	this.category = "CONVERTERS";
 
 	this.validate = function(data, callback) {
 		if(data.total && data.total > 0){

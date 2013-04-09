@@ -23,19 +23,20 @@ exports.scanBox = function(req, res){
   		var _obj = new _require.index();
 
   		var b = {};
-  		b.id = _obj.id || data[i];
+  		b.id = data[i];
   		b.label = _obj.label || data[i];
-
+      b.category = _obj.category || 'ALL';
   		b.listProp = [];
 
   		for(var i in _obj){
-  			if(typeof(_obj[i]) != 'function' && i != 'label' && i != 'id'){  				
-  				var prop = {};
-  				prop.key = i;
-  				prop.value = _obj[i];
-  				b.listProp.push(prop);
+  			if(typeof(_obj[i]) != 'function' && i != 'label' && i != 'id' && i != 'category'){          
+    				var prop = {};
+    				prop.key = i;
+    				prop.value = _obj[i];            
+    				b.listProp.push(prop);
+          }
   			}
-  		}
+  		
   		exports.box.push(b);
   	} 
 	res.end(JSON.stringify({scanBox : 'Scaneado com sucesso', box : data}));  

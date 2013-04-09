@@ -55,7 +55,7 @@
 
 			connectorHoverStyle = {
 				lineWidth:2,
-				strokeStyle:"#E74C3C"
+				strokeStyle:"black"
 			},
 
 			sourceEndpoint = {
