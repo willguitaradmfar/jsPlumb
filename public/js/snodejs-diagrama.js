@@ -1,13 +1,14 @@
 function boxController ($scope, $http) {
 	$scope.listBox = [];
 
-	$http({method: 'GET', url: '/getBoxModules'}).success(function(data, status, headers, config) {	  	
-		$scope.listBox = data;
-	}).error(function(data, status, headers, config) {
-		alert('Não foi possível receber os modulos do servidor');
-	});
+	$http({method: 'GET', url: '/getBoxModules'})
+		.success(function(data, status, headers, config) {	  	
+			$scope.listBox = data;
+		}).error(function(data, status, headers, config) {
+			alert('Não foi possível receber os modulos do servidor');
+		});
 
-	$scope.listIntenceBox = [];	
+	$scope.listInstanceBox = [];	
 
 	$scope.clickBox = function (box) {
 		
@@ -20,7 +21,7 @@ function boxController ($scope, $http) {
 		_box.label = box.label+'#'+box.instance;
 		_box.id = 'instance-'+box.instance+'-'+box.id;		
 		_box.listProp = newInstanceProp(box.listProp);
-		$scope.listIntenceBox.push(_box);			
+		$scope.listInstanceBox.push(_box);			
 	};
 
 	$scope.clickInstanceBox = function (instanceBox) {		
@@ -30,6 +31,10 @@ function boxController ($scope, $http) {
 	$scope.refreshBox = function(box) {
 		_addEndpoints(box.id, ["BottomCenter"], ["TopCenter"]);
 		jsPlumb.draggable(jsPlumb.getSelector(".window"), { grid: [1, 1] });
+	};
+
+	$scope.buildDiagrama = function() {
+		
 	};
 
 	var newInstanceProp = function(arrayProp) {

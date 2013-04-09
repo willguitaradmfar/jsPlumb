@@ -15,6 +15,17 @@ body {
     padding-left: 6%;
 }
 
+.headsubtop {
+    height:36px;
+    background-color: #2c9e50;
+    padding-top: 2px;
+    padding-left: 6%;    
+}
+
+.headsubtop a{    
+    color: white !important;
+}
+
 .headtop a{
     float: left;
 }

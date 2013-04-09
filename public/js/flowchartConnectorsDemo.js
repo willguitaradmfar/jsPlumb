@@ -1,5 +1,5 @@
 ;(function() {
-
+	
 	var socket = io.connect('/jsPlumb');
 
 	socket.on('test-fail', function(data) {	
@@ -96,42 +96,34 @@
 			};
 
 			var allSourceEndpoints = [], allTargetEndpoints = [];
-				_addEndpoints = function(toId, sourceAnchors, targetAnchors) {
-					for (var i = 0; i < sourceAnchors.length; i++) {
-						var sourceUUID = toId + sourceAnchors[i];
-						allSourceEndpoints.push(jsPlumb.addEndpoint(toId, sourceEndpoint, { anchor:sourceAnchors[i], uuid:sourceUUID }));
-					}
-					for (var j = 0; j < targetAnchors.length; j++) {
-						var targetUUID = toId + targetAnchors[j];
-						allTargetEndpoints.push(jsPlumb.addEndpoint(toId, targetEndpoint, { anchor:targetAnchors[j], uuid:targetUUID }));
-					}
-				};
-
-			// _addEndpoints("window6", ["TopCenter", "TopLeft", "TopRight", "BottomCenter"], ["LeftMiddle", "RightMiddle"]);
-			// _addEndpoints("window5", ["TopCenter", "BottomCenter"], ["LeftMiddle", "RightMiddle"]);
-			// _addEndpoints("window4", ["TopCenter", "BottomCenter"], ["LeftMiddle", "RightMiddle"]);
-			// _addEndpoints("window2", ["LeftMiddle", "BottomCenter"], ["TopCenter", "RightMiddle"]);
-			// _addEndpoints("window3", ["RightMiddle", "BottomCenter"], ["LeftMiddle", "TopCenter"]);
-			// _addEndpoints("window1", ["LeftMiddle", "RightMiddle"], ["TopCenter", "BottomCenter"]);
-
+			_addEndpoints = function(toId, sourceAnchors, targetAnchors) {
+				for (var i = 0; i < sourceAnchors.length; i++) {
+					var sourceUUID = toId + sourceAnchors[i];
+					allSourceEndpoints.push(jsPlumb.addEndpoint(toId, sourceEndpoint, { anchor:sourceAnchors[i], uuid:sourceUUID }));
+				}
+				for (var j = 0; j < targetAnchors.length; j++) {
+					var targetUUID = toId + targetAnchors[j];
+					allTargetEndpoints.push(jsPlumb.addEndpoint(toId, targetEndpoint, { anchor:targetAnchors[j], uuid:targetUUID }));
+				}
+			};
 
 			jsPlumb.bind("jsPlumbConnection", function(connInfo, originalEvent) {
 				init(connInfo.connection);
-				socket.emit('jsPlumbConnection', {action : 'jsPlumbConnection', source : connInfo.connection.sourceId, target : connInfo.connection.targetId});
+				socket.emit('jsPlumbConnection', 
+					{
+						action : 'jsPlumbConnection', 
+						source : connInfo.connection.sourceId, 
+						target : connInfo.connection.targetId
+					});
 			});
 
-
-			
-
-			// jsPlumb.connect({uuids:["window2BottomCenter", "window3TopCenter"], editable:true});
-			// jsPlumb.connect({uuids:["window2LeftMiddle", "window4LeftMiddle"], editable:true});
-			// jsPlumb.connect({uuids:["window4TopCenter", "window4RightMiddle"], editable:true});
-			// jsPlumb.connect({uuids:["window3RightMiddle", "window2RightMiddle"], editable:true});
-			// jsPlumb.connect({uuids:["window4BottomCenter", "window1TopCenter"], editable:true});
-			// jsPlumb.connect({uuids:["window3BottomCenter", "window1BottomCenter"], editable:true});
-
 			jsPlumb.bind("click", function(conn, originalEvent) {
-				socket.emit('detach', {action : 'detach', source : conn.sourceId, target : conn.targetId});
+				socket.emit('detach', 
+					{
+						action : 'detach', 
+						source : conn.sourceId, 
+						target : conn.targetId
+					});
 				jsPlumb.detach(conn);
 
 			});
@@ -143,12 +135,22 @@
 
 			jsPlumb.bind("connectionDrag", function(connection) {
 				console.log("connection " + connection.id + " is being dragged");
-				socket.emit('connectionDrag', {action : 'connectionDrag', source : connection.sourceId, target : connection.targetId});
+				socket.emit('connectionDrag', 
+					{
+						action : 'connectionDrag', 
+						source : connection.sourceId, 
+						target : connection.targetId
+					});
 			});
 
 			jsPlumb.bind("connectionDragStop", function(connection) {
 				console.log("connection " + connection.id + " was dragged");
-				socket.emit('connectionDragStop', {action : 'connectionDragStop', source : connection.sourceId, target : connection.targetId});
+				socket.emit('connectionDragStop', 
+					{
+						action : 'connectionDragStop', 
+						source : connection.sourceId, 
+						target : connection.targetId
+					});
 			});
 		}
 	};
