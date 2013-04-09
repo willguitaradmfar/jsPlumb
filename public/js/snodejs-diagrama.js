@@ -7,9 +7,7 @@ function boxController ($scope, $http) {
 		alert('Não foi possível receber os modulos do servidor');
 	});
 
-	$scope.listIntenceBox = [];
-
-	$scope.listProp = [];
+	$scope.listIntenceBox = [];	
 
 	$scope.clickBox = function (box) {
 		
@@ -20,20 +18,29 @@ function boxController ($scope, $http) {
 
 		var _box = {};
 		_box.label = box.label+'#'+box.instance;
-		_box.id = 'instance-'+box.instance+'-'+box.id;
-		_box.listProp = box.listProp;
-		$scope.listIntenceBox.push(_box);
-
-		setTimeout(function() {
-			_addEndpoints(_box.id, ["BottomCenter"], ["TopCenter"]);
-			jsPlumb.draggable(jsPlumb.getSelector(".window"), { grid: [1, 1] });
-		},500);		
+		_box.id = 'instance-'+box.instance+'-'+box.id;		
+		_box.listProp = newInstanceProp(box.listProp);
+		$scope.listIntenceBox.push(_box);			
 	};
 
 	$scope.clickInstanceBox = function (instanceBox) {		
-		$scope.listProp = instanceBox.listProp;
-		$scope.instanceBoxProp = instanceBox;
+		$scope.instanceBoxProp = instanceBox;		
 	};
-	
+
+	$scope.refreshBox = function(box) {
+		_addEndpoints(box.id, ["BottomCenter"], ["TopCenter"]);
+		jsPlumb.draggable(jsPlumb.getSelector(".window"), { grid: [1, 1] });
+	};
+
+	var newInstanceProp = function(arrayProp) {
+		var _arrayProp = [];
+		for(var i in arrayProp){
+			var prop = {};
+			prop.key = arrayProp[i].key;
+			prop.value = arrayProp[i].value;
+			_arrayProp.push(prop);
+		}
+		return _arrayProp;
+	};
 }
 

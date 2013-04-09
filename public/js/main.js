@@ -54,13 +54,3 @@
         $("#boxProp").empty().append(props);
       });
     });
-
-
-
-
-
-
-
-
-
-

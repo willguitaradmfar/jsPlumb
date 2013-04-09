@@ -29,8 +29,7 @@ exports.scanBox = function(req, res){
   		b.listProp = [];
 
   		for(var i in _obj){
-  			if(typeof(_obj[i]) != 'function' && i != 'label' && i != 'id'){
-  				console.log('Prop ' +  _obj[i]);
+  			if(typeof(_obj[i]) != 'function' && i != 'label' && i != 'id'){  				
   				var prop = {};
   				prop.key = i;
   				prop.value = _obj[i];

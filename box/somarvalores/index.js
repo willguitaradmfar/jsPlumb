@@ -1,6 +1,8 @@
 exports.index = function(config) {
 
 	this.label = "Somar";
+	this.Decimal = "2";
+	this.Cor = "Red";
 
 	this.validate = function(data, callback) {	
 		if(data['v1'] != undefined && data['v2'] != undefined){		
