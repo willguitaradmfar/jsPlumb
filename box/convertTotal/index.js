@@ -1,6 +1,9 @@
 
 exports.index = function(config) {
 
+	this.label = "Convert";
+	this.Moeda = "Dolar";
+
 	this.validate = function(data, callback) {
 		if(data.total && data.total > 0){
 			callback({msg : "Obj válido data.total é > 0 "+JSON.stringify(data), type : "success"});

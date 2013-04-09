@@ -1,5 +1,7 @@
 exports.index = function(config) {
 
+	this.label = "Formulário";
+
 	this.validate = function(data, callback) {	
 		if(data['v1'] != undefined && data['v2'] != undefined){		
 			callback({msg : "Obj válido", type : "success"});

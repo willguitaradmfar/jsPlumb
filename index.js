@@ -25,6 +25,7 @@ app.configure(function(){
 });
 
 app.get('/getBoxModules', routes.getBoxModules);
+app.get('/scanBox', routes.scanBox);
 
 exports.construct = function() {
 	var io = socketio.listen(http).of('/jsPlumb');
