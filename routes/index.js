@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-exports.pathProject = '/home/william/git/jsPlumb/';
+exports.pathProject = __dirname.replace(/(^.*)routes/, '$1');
 exports.box = [];
 
 exports.index = function(req, res){

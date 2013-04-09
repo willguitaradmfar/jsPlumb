@@ -1,14 +1,9 @@
---- 
-applications: 
-  .: 
-    url: ${name}.${target-base}
-    mem: 256M
-    infra: aws
-    instances: 1
-    framework: 
-      info: 
-        description: Node.js Application
-        exec: 
-        mem: 64M
-      name: node
-    name: wlpflow
+---
+applications:
+- name: wlpflow
+  framework: node
+  runtime: node08
+  memory: 1G
+  instances: 1
+  url: wlpflow.${target-base}
+  path: .
