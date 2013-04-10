@@ -14,6 +14,13 @@ exports.getBoxModules = function(req, res){
   res.end(JSON.stringify(exports.box));
 };
 
+exports.buildDiagrama = function(req, res) {
+  //console.log(req.body);
+  for(var i in req.body){
+    console.log(req.body[i].targetListProp[0]);
+  }
+};
+
 exports.scanBox = function(req, res){
 	exports.box = [];
 	var data = fs.readdirSync(exports.pathProject+'box/');
