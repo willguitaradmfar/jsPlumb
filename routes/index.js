@@ -1,4 +1,5 @@
 var fs = require('fs');
+var build = require('./build.js');
 
 exports.pathProject = __dirname.replace(/(^.*)routes/, '$1');
 exports.box = [];
@@ -28,9 +29,12 @@ exports.buildDiagrama = function(req, res) {
         data.msg = err;
       } else {
         data.msg = 'Diagrama salvo com sucesso';
-        console.log('Arquivo salvo com sucesso');
+        console.log('Arquivo salvo com sucesso');        
+        build.buildOrchestrator(exports.pathProject, function() {
+          res.end(JSON.stringify(data));
+        });
       }         
-      res.end(JSON.stringify(data));
+      
     });
 
 };
