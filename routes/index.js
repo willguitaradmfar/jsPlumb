@@ -15,7 +15,20 @@ exports.getBoxModules = function(req, res){
 };
 
 exports.buildDiagrama = function(req, res) {
-  console.log(req.body);  
+  console.log(req.body);
+
+  var diagrama = {};
+  diagrama.name = "1";
+  diagrama.content = req.body;
+
+  fs.writeFile(exports.pathProject+'.workspace/1.diag', JSON.stringify(diagrama), function(err) {
+      //se houver erro, colocamos no console, se não, dizemos que o arquivo foi salvo
+      if(err) {
+        console.error(err);
+      } else {
+        console.log('Arquivo salvo com sucesso');
+      }         
+    });
 };
 
 exports.scanBox = function(req, res){
