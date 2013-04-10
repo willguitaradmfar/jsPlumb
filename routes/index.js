@@ -15,10 +15,7 @@ exports.getBoxModules = function(req, res){
 };
 
 exports.buildDiagrama = function(req, res) {
-  //console.log(req.body);
-  for(var i in req.body){
-    console.log(req.body[i].targetListProp[0]);
-  }
+  console.log(req.body);  
 };
 
 exports.scanBox = function(req, res){
