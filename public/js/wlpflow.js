@@ -38,9 +38,9 @@ function boxController ($scope, $http, $window) {
 	$scope.buildDiagrama = function() {		
 		$http({method: 'POST', url: '/buildDiagrama', data : wlpflowdiagrama})
 		.success(function(data, status, headers, config) {	  	
-			$scope.listBox = data;
+			alert(data.msg);
 		}).error(function(data, status, headers, config) {
-			alert('Não foi possível receber os modulos do servidor');
+			alert('Não foi possível montar o diagrama');
 		});
 	};
 

@@ -21,14 +21,18 @@ exports.buildDiagrama = function(req, res) {
   diagrama.name = "1";
   diagrama.content = req.body;
 
-  fs.writeFile(exports.pathProject+'.workspace/1.diag', JSON.stringify(diagrama), function(err) {
-      //se houver erro, colocamos no console, se não, dizemos que o arquivo foi salvo
+  fs.writeFile(exports.pathProject+'workspace/1.diag', JSON.stringify(diagrama), function(err) {
+      var data = {};
       if(err) {
         console.error(err);
+        data.msg = err;
       } else {
+        data.msg = 'Diagrama salvo com sucesso';
         console.log('Arquivo salvo com sucesso');
       }         
+      res.end(JSON.stringify(data));
     });
+
 };
 
 exports.scanBox = function(req, res){
