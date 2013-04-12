@@ -16,6 +16,7 @@ npm start
 Como acessar ?
 ==============
 
+* [http://localhost:8081/scanBox](http://localhost:8081/scanBox) Para Scanear os boxes
 * [http://localhost:8081](http://localhost:8081)
 
 Uso
