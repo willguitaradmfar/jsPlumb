@@ -42,7 +42,7 @@ exports.buildOrchestrator = function(pathProject, fun) {
   		if(allInstanceSource[i] == diagrama.content[io].sourceId){
 			for(var ii in diagrama.content[io].sourceListProp){  			
 	  			for(var iii in diagrama.content[io].sourceListProp[ii]){  				
-		  				console.log(diagrama.content[io].sourceListProp[ii].key + ' : ' + diagrama.content[io].sourceListProp[ii].value);
+		  				console.log(diagrama.content[io].sourceListProp[ii].key + ' : ' + diagrama.content[io].sourceListProp[ii].value+";");
 		  				setprop = setprop + "\t\t_index."+diagrama.content[io].sourceListProp[ii].key+" = '"+diagrama.content[io].sourceListProp[ii].value+"'\n";
 	  			}
 	  		}

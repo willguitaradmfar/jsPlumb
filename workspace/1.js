@@ -1,6 +1,5 @@
 var formularioDeEntrada = require('formularioDeEntrada/index.js');
 var somarvalores = require('somarvalores/index.js');
-var convertTotal = require('convertTotal/index.js');
 var enviarEmail = require('enviarEmail/index.js');
 
 exports.constructor = function(data) {
@@ -21,18 +20,8 @@ exports.somarvalores = function(data) {
 	var _index = new somarvalores.index();
 		_index.Decimal = '2'
 		_index.Decimal = '2'
-		_index.Cor = 'WWWWW'
-		_index.Cor = 'WWWWW'
-
-	_index.init(data, function(args) {
-		exports.convertTotal(args);
-	});
-};
-
-exports.convertTotal = function(data) {
-	var _index = new convertTotal.index();
-		_index.Moeda = 'LLL333333'
-		_index.Moeda = 'LLL333333'
+		_index.Cor = 'Red'
+		_index.Cor = 'Red'
 
 	_index.init(data, function(args) {
 		exports.enviarEmail(args);
