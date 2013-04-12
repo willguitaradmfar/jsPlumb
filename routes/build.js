@@ -29,13 +29,41 @@ exports.buildOrchestrator = function(pathProject, fun) {
   	appendRequire(pathProject, getModuloFromInstance(allModules[i]));
   }
 
+  //cria constructor
+  appendConstructor(pathProject, getModuloFromInstance(allInstanceSource[0]));
+
   //cria os method
   for(var i in allInstanceSource){
+
+  	console.log(allInstanceSource[i]);
+
+  	var setprop = "";
+  	for(var io in diagrama.content){
+  		if(allInstanceSource[i] == diagrama.content[io].sourceId){
+			for(var ii in diagrama.content[io].sourceListProp){  			
+	  			for(var iii in diagrama.content[io].sourceListProp[ii]){  				
+		  				console.log(diagrama.content[io].sourceListProp[ii].key + ' : ' + diagrama.content[io].sourceListProp[ii].value);
+		  				setprop = setprop + "\t\t_index."+diagrama.content[io].sourceListProp[ii].key+" = '"+diagrama.content[io].sourceListProp[ii].value+"'\n";
+	  			}
+	  		}
+	  	}
+	}  	
+	
   	appendCallMethod(pathProject
   		, getModuloFromInstance(allInstanceSource[i])
   		, getModuloFromInstance(allInstanceSource[i])
-  		, getModuloFromInstance(allInstanceTarget[i]));
+  		, getModuloFromInstance(allInstanceTarget[i])
+  		, setprop);
   }
+
+  //cria chamada para o destroy
+  appendCallMethod(pathProject
+  		, getModuloFromInstance(allInstanceTarget[allInstanceSource.length-1])
+  		, getModuloFromInstance(allInstanceTarget[allInstanceSource.length-1])
+  		, 'destroy');
+
+  //cria o metodo destroy
+  appendDestroy(pathProject);
 
   fun();
 };
@@ -81,9 +109,9 @@ var clearFileJS = function(pathProject) {
 	fs.writeFileSync(pathProject+'workspace/1.js', '');
 };
 
-var appendCallMethod = function(pathProject, method, box, nextMethod) {
+var appendCallMethod = function(pathProject, method, box, nextMethod, setprop) {
 	var fileJS = fs.readFileSync(pathProject+'workspace/1.js', 'utf8');
-	var appendContent = tplMethod.replace(/\$method\$/, method).replace(/\$box\$/, box).replace(/\$nextMethod\$/, nextMethod);
+	var appendContent = tplMethod.replace(/\$method\$/, method).replace(/\$box\$/, box).replace(/\$nextMethod\$/, nextMethod).replace(/\$setprop\$/, setprop);
 
 	fs.writeFileSync(pathProject+'workspace/1.js', fileJS+appendContent);
 };
@@ -95,11 +123,38 @@ var appendRequire = function(pathProject, box) {
 	fs.writeFileSync(pathProject+'workspace/1.js', fileJS+appendContent);
 };
 
+var appendConstructor = function(pathProject, nextMethod) {
+	var fileJS = fs.readFileSync(pathProject+'workspace/1.js', 'utf8');
+	var appendContent = tplConstructor.replace(/\$nextMethod\$/, nextMethod);
+
+	fs.writeFileSync(pathProject+'workspace/1.js', fileJS+appendContent);
+};
+
+var appendDestroy = function(pathProject) {
+	var fileJS = fs.readFileSync(pathProject+'workspace/1.js', 'utf8');
+	var appendContent = tplDestroy;
+
+	fs.writeFileSync(pathProject+'workspace/1.js', fileJS+appendContent);
+};
+
 var tplRequire = "var $box$ = require('$box$/index.js');\n";
 
 var tplMethod = "\nexports.$method$ = function(data) {\n"+
-				"\t$box$.init(data, function(args) {\n"+
-					"\t\texports.$nextMethod$(args);\n"+
-				"\t});\n"+
-			"};\n";
+					"\tvar _index = new $box$.index();\n" +
+					"$setprop$\n" +
+					"\t_index.init(data, function(args) {\n"+
+						"\t\texports.$nextMethod$(args);\n"+
+					"\t});\n"+
+				"};\n";
+
+var tplConstructor = "\nexports.constructor = function(data) {\n"+
+							"\tconsole.log('constructor');\n" +
+							"\tconsole.log(data);\n" +
+							"\texports.$nextMethod$(data);\n"+						
+					"};\n";
+var tplDestroy = "\nexports.destroy = function(data) {\n"+
+						"\tconsole.log('destroy');\n" +
+						"\tconsole.log(data);\n" +		
+					"};\n"+
+					"exports.constructor({v1 : 100, v2 : 33});\n";
 
